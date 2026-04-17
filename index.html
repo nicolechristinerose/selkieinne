@@ -81,7 +81,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lexend:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -213,6 +213,73 @@
         nav a:hover {
             border-bottom: 2px solid var(--accent-sage);
             color: var(--accent-sage);
+        }
+
+        /* Hamburger */
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            line-height: 1;
+            padding: 0.25rem 0.5rem;
+        }
+
+        /* Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0.75rem);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(245, 240, 234, 0.98);
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow-medium);
+            list-style: none;
+            padding: 0.75rem 0;
+            min-width: 200px;
+            z-index: 1001;
+            border-top: 2px solid var(--accent-gold);
+        }
+
+        .nav-dropdown-menu li a {
+            display: block;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            border-bottom: none;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-dropdown-menu li a:hover {
+            color: var(--accent-gold);
+            border-bottom: none;
+            background: rgba(184, 149, 110, 0.08);
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown:focus-within .nav-dropdown-menu,
+        .nav-dropdown.open .nav-dropdown-menu {
+            display: block;
+        }
+
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 12px;
         }
 
         /* Buttons */
@@ -362,16 +429,17 @@
         }
 
         .hero h1 {
+            font-family: 'Great Vibes', cursive;
             color: var(--text-dark);
             margin-bottom: 0.75rem;
-            font-size: clamp(4.5rem, 12vw, 10rem);
-            letter-spacing: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: clamp(5rem, 14vw, 12rem);
+            letter-spacing: 4px;
+            font-weight: 400;
+            text-transform: none;
             line-height: 1;
             position: relative;
             z-index: 5;
-            margin-top: -0.5em;
+            margin-top: -0.35em;
         }
 
         .hero .tagline {
@@ -1124,14 +1192,54 @@
                 padding: 3rem 1.5rem;
             }
 
+            .nav-hamburger {
+                display: block;
+            }
+
             nav ul {
-                gap: 1rem;
-                font-size: 0.85rem;
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(245, 240, 234, 0.98);
+                backdrop-filter: blur(8px);
+                box-shadow: var(--shadow-medium);
+                padding: 1rem 0;
+                z-index: 999;
+            }
+
+            nav ul.open {
+                display: flex;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
             }
 
             nav a {
-                font-size: 0.75rem;
-                letter-spacing: 0.5px;
+                display: block;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+                letter-spacing: 1px;
+                border-bottom: none;
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                border-top: none;
+                border-left: 3px solid var(--accent-gold);
+                margin: 0 2rem;
+                background: transparent;
+            }
+
+            .nav-dropdown.open .nav-dropdown-menu {
+                display: block;
             }
 
             .cta-final .cta-buttons {
@@ -1189,12 +1297,31 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="brand">Selkie Inne</div>
-            <ul>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">&#9776;</button>
+            <ul id="navMenu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#story">Story</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#sessions">Sessions</a></li>
-                <li><a href="#bundles">Bundles</a></li>
+                <li class="nav-dropdown">
+                    <a href="#sessions" class="nav-dropdown-toggle">Sessions ▾</a>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="#session-therapeutic">Therapeutic Massage</a></li>
+                        <li><a href="#session-mld">MLD</a></li>
+                        <li><a href="#session-ashiatsu">Ashiatsu</a></li>
+                        <li><a href="#session-oasis">The Oasis Reset</a></li>
+                        <li><a href="#session-kinetic">The Kinetic Fix</a></li>
+                        <li><a href="#session-reiki">Reiki</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#bundles" class="nav-dropdown-toggle">Bundles ▾</a>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="#bundle-massage">Massage Bundles</a></li>
+                        <li><a href="#bundle-mld">MLD Bundles</a></li>
+                        <li><a href="#bundle-ces">Corrective Exercise</a></li>
+                        <li><a href="#bundle-programs">Transformation Programs</a></li>
+                    </ul>
+                </li>
                 <li><a href="#understanding">Learn</a></li>
                 <li><a href="#book">Book</a></li>
             </ul>
@@ -1295,34 +1422,7 @@
             </p>
 
             <div class="cards-grid">
-                <div class="card opacity-in">
-                    <h3>The Oasis Reset</h3>
-                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">MLD · Hot Stones · Reiki</p>
-                    <div class="duration-price">
-                        <span class="duration">100 Minutes</span>
-                        <span class="price">$265</span>
-                    </div>
-                    <p>
-                        A full integration of Manual Lymphatic Drainage, hot stones, and Reiki — designed to clear energetic stagnation while physically moving the lymphatic system. Deep, quiet, and restorative.
-                    </p>
-                    <p style="font-size: 0.85rem; color: var(--accent-gold); font-style: italic;">For healthy bodies only. Hot stones increase lymphatic load and are contraindicated for active lymphedema, post-surgical swelling, or acute inflammation.</p>
-                    <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
-                </div>
-
-                <div class="card opacity-in">
-                    <h3>The Kinetic Fix</h3>
-                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Ashiatsu · Stretch · Deep Tissue · Hot Stones</p>
-                    <div class="duration-price">
-                        <span class="duration">100 Minutes</span>
-                        <span class="price">$215</span>
-                    </div>
-                    <p>
-                        30 minutes of targeted Ashiatsu barefoot work, 15 minutes of guided stretch, 45 minutes of targeted deep tissue, and 10 minutes of hot stones to close. Structured, precise, and deeply effective for bodies that carry chronic tension.
-                    </p>
-                    <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
-                </div>
-
-                <div class="card opacity-in">
+                <div class="card opacity-in" id="session-therapeutic">
                     <h3>Therapeutic Massage</h3>
                     <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Deep Tissue · Myofascial Release · Neuromuscular Therapy</p>
                     <div class="duration-price">
@@ -1339,7 +1439,7 @@
                     <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
                 </div>
 
-                <div class="card opacity-in">
+                <div class="card opacity-in" id="session-mld">
                     <h3>Manual Lymphatic Drainage</h3>
                     <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">MLD · CBD Balm · Hot Stones · Hot Towels</p>
                     <div class="duration-price">
@@ -1357,20 +1457,7 @@
                     <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
                 </div>
 
-                <div class="card opacity-in">
-                    <h3>Reiki</h3>
-                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Energy Work · Nervous System Reset</p>
-                    <div class="duration-price">
-                        <span class="duration">60 Minutes</span>
-                        <span class="price">$120</span>
-                    </div>
-                    <p>
-                        A still, deeply restorative session for the nervous system. Reiki works with your body's energy to release held tension, quiet the stress response, and create space for the healing that's already trying to happen.
-                    </p>
-                    <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
-                </div>
-
-                <div class="card opacity-in">
+                <div class="card opacity-in" id="session-ashiatsu">
                     <h3>Ashiatsu</h3>
                     <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Barefoot Deep Tissue</p>
                     <div class="duration-price">
@@ -1382,16 +1469,58 @@
                     </p>
                     <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
                 </div>
-            </div>
 
-            <!-- Garden Gifts -->
-            <div class="enhancement-list opacity-in" style="margin-top: 3rem;">
-                <div class="enhancement-item">
-                    <div>
-                        <h4>Garden Gifts</h4>
-                        <p>A seasonal add-on — fresh vegetables, herbs, produce, or 2 nursery plants from the garden. Whatever is ready that day.</p>
+                <div class="card opacity-in" id="session-oasis">
+                    <h3>The Oasis Reset</h3>
+                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">MLD · Hot Stones · Reiki</p>
+                    <div class="duration-price">
+                        <span class="duration">100 Minutes</span>
+                        <span class="price">$265</span>
                     </div>
-                    <div class="enhancement-price">$20</div>
+                    <p>
+                        A full integration of Manual Lymphatic Drainage, hot stones, and Reiki — designed to clear energetic stagnation while physically moving the lymphatic system. Deep, quiet, and restorative.
+                    </p>
+                    <p style="font-size: 0.85rem; color: var(--accent-gold); font-style: italic;">For healthy bodies only. Hot stones increase lymphatic load and are contraindicated for active lymphedema, post-surgical swelling, or acute inflammation.</p>
+                    <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
+                </div>
+
+                <div class="card opacity-in" id="session-kinetic">
+                    <h3>The Kinetic Fix</h3>
+                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Ashiatsu · Stretch · Deep Tissue · Hot Stones</p>
+                    <div class="duration-price">
+                        <span class="duration">100 Minutes</span>
+                        <span class="price">$215</span>
+                    </div>
+                    <p>
+                        30 minutes of targeted Ashiatsu barefoot work, 15 minutes of guided stretch, 45 minutes of targeted deep tissue, and 10 minutes of hot stones to close. Structured, precise, and deeply effective for bodies that carry chronic tension.
+                    </p>
+                    <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
+                </div>
+
+                <div class="card opacity-in">
+                    <h3>Corrective Exercise</h3>
+                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Movement · Stability · Corrective Programming</p>
+                    <div class="duration-price">
+                        <span class="duration">Per Session</span>
+                        <span class="price">$150</span>
+                    </div>
+                    <p>
+                        Targeted movement sessions to retrain dysfunctional patterns, rebuild stability, and restore trust in your body. Bundles available for 4, 8, and 12-week commitments.
+                    </p>
+                    <a href="#bundles" class="btn" style="margin-top: auto;">See Bundles</a>
+                </div>
+
+                <div class="card opacity-in" id="session-reiki">
+                    <h3>Reiki</h3>
+                    <p style="font-size: 0.85rem; color: var(--accent-sage); margin-bottom: 0.5rem; letter-spacing: 0.5px;">Energy Work · Nervous System Reset</p>
+                    <div class="duration-price">
+                        <span class="duration">60 Minutes</span>
+                        <span class="price">$120</span>
+                    </div>
+                    <p>
+                        A still, deeply restorative session for the nervous system. Reiki works with your body's energy to release held tension, quiet the stress response, and create space for the healing that's already trying to happen.
+                    </p>
+                    <a href="https://selkieinne.setmore.com" class="btn" target="_blank" rel="noopener noreferrer" style="margin-top: auto;">Book Now</a>
                 </div>
             </div>
         </div>
@@ -1405,7 +1534,7 @@
                 Pre-paid packages for consistent, committed care. The longer you invest, the more you save. Free organic CBD balm included with every 10-pack.
             </p>
 
-            <h3 class="opacity-in" style="margin-bottom: 1.5rem; color: var(--accent-sage);">Therapeutic Massage Bundles</h3>
+            <h3 class="opacity-in" id="bundle-massage" style="margin-bottom: 1.5rem; color: var(--accent-sage);">Therapeutic Massage Bundles</h3>
             <div class="opacity-in">
                 <div class="bundle-card">
                     <h3>3-Session Package <span style="font-size: 0.85rem; color: var(--text-mid);">— 5% off</span></h3>
@@ -1429,7 +1558,7 @@
                 </div>
             </div>
 
-            <h3 class="opacity-in" style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--accent-sage);">MLD Bundles</h3>
+            <h3 class="opacity-in" id="bundle-mld" style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--accent-sage);">MLD Bundles</h3>
             <div class="opacity-in">
                 <div class="bundle-card">
                     <h3>3-Session Package <span style="font-size: 0.85rem; color: var(--text-mid);">— 5% off</span></h3>
@@ -1456,7 +1585,7 @@
     </section>
 
     <!-- Corrective Exercise -->
-    <section>
+    <section id="bundle-ces">
         <div class="container-wide">
             <h2 class="text-center opacity-in">Corrective Exercise</h2>
             <p class="text-center opacity-in" style="font-size: 1.05rem; color: var(--text-mid); max-width: 700px; margin-left: auto; margin-right: auto; margin-bottom: 3rem;">
@@ -1489,7 +1618,7 @@
     </section>
 
     <!-- Immersive Programs -->
-    <section>
+    <section id="bundle-programs">
         <div class="container-wide">
             <h2 class="text-center opacity-in">Transformation Programs</h2>
             <p class="text-center opacity-in" style="font-size: 1.05rem; color: var(--text-mid); max-width: 700px; margin-left: auto; margin-right: auto; margin-bottom: 3rem;">
@@ -1936,6 +2065,32 @@
 
         document.querySelectorAll('.opacity-in').forEach(element => {
             observer.observe(element);
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('navHamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('open');
+        });
+
+        // Dropdown toggles on mobile tap
+        document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    this.closest('.nav-dropdown').classList.toggle('open');
+                }
+            });
+        });
+
+        // Close menu when a link is clicked
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('open');
+                }
+            });
         });
     </script>
 </body>
